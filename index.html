@@ -53,6 +53,11 @@ DOCTYPE html>
       text-align: center;
       width: 50px;
     }
+      #jumlah-hadir {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
@@ -89,13 +94,32 @@ DOCTYPE html>
       </tr>
     </tbody>
   </table>
+ <div id="jumlah-hadir">Jumlah siswa hadir: 0</div>
 
   <script>
     $(document).ready(function() {
-      $('#daftarHadir tbody tr').click(function() {
-        let checkbox = $(this).find('.checkbox');
-        checkbox.text(checkbox.text() === '☐' ? '☑' : '☐');
+      $("tbody tr").click(function() {
+        const checkCell = $(this).find("td.check");
+
+        // Toggle centang
+        if (checkCell.text() === "✔️") {
+          checkCell.text("");
+        } else {
+          checkCell.text("✔️");
+        }
+
+        updateJumlahHadir();
       });
+
+      function updateJumlahHadir() {
+        let jumlah = 0;
+        $("td.check").each(function() {
+          if ($(this).text() === "✔️") {
+            jumlah++;
+          }
+        });
+        $("#jumlah-hadir").text("Jumlah siswa hadir: " + jumlah);
+      }
     });
   </script>
 </body>
